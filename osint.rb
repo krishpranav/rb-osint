@@ -24,3 +24,15 @@ class String
     def bold;           "\033[1m#{self}\033[22m" end
     def reverse_color;  "\033[7m#{self}\033[27m" end
 end
+
+
+options = {}
+
+optparse = OptionParse.new do |opts|
+    opts.banner = "Usage: osint.rb --url URL --uri URIS"
+
+    options[:url] = nil
+    opts.on('--url URL','Website to test') do |url|
+        options[:url] = url
+    end
+    
