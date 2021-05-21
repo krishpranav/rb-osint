@@ -71,4 +71,15 @@ module OSINT
             @uri = URI.parse(url)
             configure_ssl
         end
+
+
+        def configure_ssl
+            @ssl = { :use_ssl => (@url.scheme == 'https') }
+
+            if @ssl[:use_ssl]
+                @ssl[:verify_mode] = OpenSSL::SSL::VERIFY_NONE
+                @ssl[:ssl_version] = 'SSLv23'
+            end
+        end
+
         
