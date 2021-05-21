@@ -129,4 +129,19 @@ module OSINT
     end
 end
 
+site = OSINT::Target.new(options[:url])
+list = File.readlines(options[:uri]).map{|l| l.strip! }
+# -----------------------------------------------------------------------------
+puts "THE TARGET DOMAIN IN SCOPE IS: ".bold.red +  "#{site}".green.bold
+puts ""
+# -----------------------------------------------------------------------------
+puts "DUMPING WEBSERVER HEADERS: ".bold.red
+puts ""
+site.search("/", :head) do |response, path|
+  response.header.each { |k, v| puts "#{k.to_s.green.bold}: #{v}" }
+end
+# -----------------------------------------------------------------------------
+puts ""
+puts "START PATH CHECKS".bold.red
+puts ""
 
