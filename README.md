@@ -1,6 +1,8 @@
 # rb-osint
 rb-osint is a simple ruby based tool used for OSINT an application. The first version has static URL entries that are commonly attacked PHPMyAdmin, VPN, Email, Citrix, etc. And, to be technical its more enumeration or active recon
 
+[![forthebadge](https://forthebadge.com/images/badges/made-with-ruby.svg)](https://forthebadge.com)
+
 # Usage
 ```
 ruby osint.rb --url http(s)://xxx.xxx.xxx.xxx --uri /lists/list.txt
