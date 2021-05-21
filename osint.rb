@@ -82,4 +82,12 @@ module OSINT
             end
         end
 
+
+        def to_s
+            @uri.to_s
+        end
+
+        def full_uri(path)
+            File.join(@uri.path, URI.encode(path))
+        end
         
