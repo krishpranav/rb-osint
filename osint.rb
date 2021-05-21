@@ -35,4 +35,9 @@ optparse = OptionParse.new do |opts|
     opts.on('--url URL','Website to test') do |url|
         options[:url] = url
     end
+
+    options[:uri] = nil
+    opts.on('--uri URIS', 'URIs to check') do |uri|
+        options[:uri] = uri
+    end
     
