@@ -40,4 +40,27 @@ optparse = OptionParse.new do |opts|
     opts.on('--uri URIS', 'URIs to check') do |uri|
         options[:uri] = uri
     end
-    
+
+    options[:debug] = false
+    opts.on('-d', '--debug', 'Show debug information') do
+        options[:debug] = true
+    end
+
+    opts.on('-h', '--help', 'Display this screen') do
+        puts opts
+        exit
+    end
+end
+optparse.parse!
+
+if options[:url].nil? or options[:uri].nil?
+    puts optparse
+    exit
+end
+
+if options[:debug]
+    require 'pry'
+    require 'yaml'
+end
+
+
