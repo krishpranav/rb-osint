@@ -121,4 +121,12 @@ module OSINT
                 return response, path
             end
         end
-        
+
+        def search(path, method=:get)
+            return request(get(path), 5, method)
+            Array(path).each { |p| yield request(full_uri(p), 5, method) }
+        end
+    end
+end
+
+
