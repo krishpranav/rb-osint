@@ -63,4 +63,12 @@ if options[:debug]
     require 'yaml'
 end
 
+module OSINT
+    class Target
+        attr_reader :uri, :ssl
 
+        def initialize(url)
+            @uri = URI.parse(url)
+            configure_ssl
+        end
+        
