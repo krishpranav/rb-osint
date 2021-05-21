@@ -90,4 +90,35 @@ module OSINT
         def full_uri(path)
             File.join(@uri.path, URI.encode(path))
         end
+
+        def request(path, limit=5, method=:get)
+            raise ArgumentError, 'HTTP Redirect Loop Detected' if limit == 0
+
+            response = Net::HTTP.start(@uri.host, @uri.port, @ssl) do
+                http.send(method, path)
+            end
+
+            if response.nil?
+                puts "Failure in response"
+                exit 1
+            end
+
+            redirected = ['301', '302'].include? response.code
+
+            if redirected
+                new_path = URI.parse(response.header['location'])
+                @uri.host = new_path.host if new_path.host
+
+                if new_path.scheme && new_path.scheme != @uri.scheme
+                    @uri.scheme = new_path.scheme
+                    @uri.port = new_path.port
+                    configure_ssl
+                end
+
+                method = new_path.response_to?(:request_uri) ? :request_uri : :to_s
+                request(new_path.send(method), limit -1)
+            else
+                return response, path
+            end
+        end
         
